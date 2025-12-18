@@ -1,0 +1,394 @@
+/* =========================
+   Base / Reset
+   - 全站基礎樣式（字體、背景、盒模型）
+========================= */
+* {
+  box-sizing: border-box; /* 讓 padding/border 不會把元素撐爆 */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1f2937;
+  background: #f9fafb;
+}
+
+/* =========================
+   Header
+   - 頂部固定列（語言切換、Meta）
+========================= */
+.header {
+  position: sticky;       /* 滾動時固定在頂端 */
+  top: 0;
+  z-index: 10;            /* 避免被內容蓋住 */
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+#meta {
+  font-size: 12px;
+  color: #6b7280;         /* 次要資訊用灰色 */
+}
+
+/* 語言切換按鈕 */
+.lang-switch button {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  padding: 6px 10px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.lang-switch .active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* =========================
+   Layout
+   - 左側目錄（sidebar）＋右側內容（content）
+========================= */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr; /* 左 260px / 右自動填滿 */
+  min-height: calc(100vh - 56px);   /* 扣掉 header 高度（視需要可調） */
+}
+
+.sidebar {
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 16px;
+  overflow-y: auto; /* 目錄過長時可捲動 */
+}
+
+.sidebar h3 {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+/* 目錄按鈕（章節/搜尋結果都共用） */
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: #2563eb;
+}
+
+.sidebar button:hover {
+  text-decoration: underline;
+}
+
+/* 右側主要內容區 */
+.content {
+  padding: 32px;
+  max-width: 900px; /* 文件閱讀最佳寬度（避免一行太長） */
+}
+
+/* =========================
+   Search
+   - 左側搜尋框
+========================= */
+.search-box {
+  margin-bottom: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* =========================
+   Content Blocks
+   - 文字 / 圖片 / 表格 等區塊呈現
+========================= */
+
+/* 文字段落
+   - white-space: pre-line 讓 JSON 的 \n 可換行顯示
+*/
+.block-text {
+  margin: 16px 0;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* ----- Image Block ----- */
+.block-image {
+  margin: 24px 0;
+  text-align: center;
+}
+
+/* 圖片基礎顯示規則
+   - width:100% 讓圖片在小螢幕自適應
+   - max-width 由 size variants 控制（下面三段）
+*/
+.block-image img {
+  width: 100%;
+  height: auto;
+  cursor: zoom-in; /* 提示可點擊放大 */
+}
+
+/* Image size variants（圖片大小分級）
+   - 你目前設定：sm=300, md=420, lg=640
+   - 若想更大只要調整這三個數值，不用動其他地方
+*/
+.block-image.size-sm img { max-width: 300px; }
+.block-image.size-md img { max-width: 420px; }
+.block-image.size-lg img { max-width: 640px; }
+
+.block-image figcaption {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ----- Table Block ----- */
+.block-table {
+  margin: 24px 0;
+  overflow-x: auto; /* 表格太寬可橫向捲動 */
+}
+
+.block-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.block-table th,
+.block-table td {
+  border: 1px solid #d1d5db;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.block-table th {
+  background: #f3f4f6; /* 表頭淡灰 */
+}
+
+/* =========================
+   Highlight (Search)
+   - 搜尋高亮 + 捲動定位避免被 header 擋住
+========================= */
+mark {
+  background: #fde68a;
+  padding: 0 2px;
+  border-radius: 3px;
+  scroll-margin-top: 80px; /* 捲到 mark 時往下留空間 */
+}
+
+/* 章節標題定位時，也避免被 sticky header 蓋住 */
+#doc h2 {
+  scroll-margin-top: 80px;
+}
+
+/* =========================
+   Lightbox
+   - 圖片點擊放大彈窗
+========================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 999; /* 蓋過 header */
+}
+
+.hidden {
+  display: none; /* Lightbox 關閉用 */
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.lightbox-panel {
+  position: relative;
+  max-width: min(1100px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  margin: 12px auto;
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden; /* 防止內容溢出 */
+}
+
+.lightbox-img {
+  width: 100%;
+  max-height: calc(100vh - 160px);
+  object-fit: contain; /* 保持比例完整顯示 */
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.lightbox-cap {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #6b7280;
+}
+/* =========================
+   TOC Accordion (3-level)
+========================= */
+.toc-chapter {
+  margin-top: 12px;
+}
+
+.toc-toggle {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 650;
+  color: #111827;
+}
+
+.toc-toggle:hover {
+  background: #f3f4f6;
+}
+
+.toc-panel {
+  margin: 6px 0 10px 0;
+  padding-left: 10px;
+  border-left: 2px solid #e5e7eb;
+}
+
+.toc-group {
+  margin-top: 8px;
+}
+
+.toc-group-title {
+  width: 100%;
+  padding: 6px 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: #374151;
+  font-weight: 600;
+}
+
+.toc-group-title:hover {
+  text-decoration: underline;
+}
+
+.toc-group-panel {
+  padding-left: 10px;
+}
+
+.toc-item {
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: #2563eb;
+}
+
+.toc-item:hover {
+  text-decoration: underline;
+}
+
+/* 選中狀態（可選） */
+.toc-item.active {
+  font-weight: 700;
+  color: #1d4ed8;
+}
+/* =========================
+   TOC Accordion (3-level)
+========================= */
+.toc-chapter {
+  margin-top: 10px;
+}
+
+.toc-toggle {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 700;
+  color: #111827;
+}
+
+.toc-toggle:hover {
+  background: #f3f4f6;
+}
+
+.toc-panel {
+  margin: 8px 0 12px 0;
+  padding-left: 10px;
+  border-left: 2px solid #e5e7eb;
+}
+
+.toc-group {
+  margin-top: 6px;
+}
+
+.toc-group-title {
+  width: 100%;
+  padding: 6px 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: #374151;
+  font-weight: 650;
+}
+
+.toc-group-title:hover {
+  text-decoration: underline;
+}
+
+.toc-group-panel {
+  padding-left: 10px;
+}
+
+.toc-item {
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: #2563eb;
+}
+
+.toc-item:hover {
+  text-decoration: underline;
+}
+
+.toc-item.active {
+  font-weight: 800;
+  color: #1d4ed8;
+}
