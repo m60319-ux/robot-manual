@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <title>Image to Data URL Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background:#f9fafb;
+      margin:0;
+      padding:24px;
+      color:#111827;
+    }
+    h1{ font-size:20px; margin-bottom:8px; }
+    p{ color:#6b7280; }
+
+    .panel{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:8px;
+      padding:16px;
+      max-width:900px;
+    }
+
+    .drop{
+      border:2px dashed #9ca3af;
+      border-radius:8px;
+      padding:32px;
+      text-align:center;
+      color:#374151;
+      margin-bottom:16px;
+      background:#f3f4f6;
+    }
+
+    .drop.active{
+      border-color:#2563eb;
+      background:#eff6ff;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      margin:16px 0;
+      border:1px solid #e5e7eb;
+    }
+
+    textarea{
+      width:100%;
+      min-height:180px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:12px;
+      padding:12px;
+      border:1px solid #d1d5db;
+      border-radius:6px;
+    }
+
+    button{
+      margin-top:12px;
+      padding:8px 12px;
+      border:1px solid #2563eb;
+      background:#2563eb;
+      color:#ffffff;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    .hint{
+      font-size:12px;
+      color:#6b7280;
+      margin-top:8px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>圖片 → Data URL 轉換工具</h1>
+<p>直接貼上圖片（Ctrl + V），系統會自動轉成 Data URL，複製後可直接貼進 <code>manual.json</code>。</p>
+
+<div class="panel">
+  <div id="drop" class="drop">
+    👉 在這裡 <strong>Ctrl + V</strong> 貼上圖片
+  </div>
+
+  <img id="preview" style="display:none;" />
+
+  <textarea id="output" placeholder="Data URL 會出現在這裡"></textarea>
+
+  <button id="copyBtn">複製 Data URL</button>
+
+  <div class="hint">
+    建議圖片大小：&lt; 800px 寬、&lt; 1MB，避免手冊載入太慢。
+  </div>
+</div>
+
+<script>
+  const drop = document.getElementById("drop");
+  const preview = document.getElementById("preview");
+  const output = document.getElementById("output");
+  const copyBtn = document.getElementById("copyBtn");
+
+  const MAX_WIDTH = 800; // ★你可以改成 600 / 1000
+
+  document.addEventListener("paste", e => {
+    const items = e.clipboardData.items;
+    for (const item of items) {
+      if (!item.type.startsWith("image/")) continue;
+
+      const file = item.getAsFile();
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = () => img.src = reader.result;
+      reader.readAsDataURL(file);
+
+      img.onload = () => {
+        let { width, height } = img;
+
+        if (width > MAX_WIDTH) {
+          height = Math.round(height * (MAX_WIDTH / width));
+          width = MAX_WIDTH;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL("image/png", 0.9);
+
+        preview.src = dataUrl;
+        preview.style.display = "block";
+        output.value = dataUrl;
+      };
+    }
+  });
+
+  copyBtn.onclick = () => {
+    output.select();
+    document.execCommand("copy");
+    alert("已複製縮小後的 Data URL");
+  };
+</script>
+
+
+</body>
+</html>
