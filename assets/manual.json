@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "product": "Delta Robot + MS2 + DRAStudio Pro",
+    "version": "v1.0"
+  },
+  "chapters": [
+    {
+      "id": "ch-01",
+      "title": { "zh": "基本操作", "en": "Basic Operation" },
+      "groups": [
+        {
+          "id": "grp-01",
+          "title": { "zh": "連線", "en": "Connection" },
+          "sections": [
+            {
+              "id": "sec-01",
+              "title": {
+                "zh": "連線控制器（MS2 / MS）",
+                "en": "Connect Controller (MS2 / MS)"
+              },
+              "blocks": [
+                {
+                  "type": "text",
+                  "zh": "【目的】建立 DRAStudio Pro 與控制器（MS2 / MS）通訊連線。\n\n【共用程序】\n1. 確認控制器已上電。\n（備註：請確認電源指示燈亮起，並完成必要的安全確認）\n\n2. 確認通訊線材或連線方式已就緒。\n（備註：若使用 USB、網路或序列通訊，請先確認電腦端已可識別裝置或連線介面）\n\n3. 在 DRAStudio Pro 點擊 Connect 按鈕。\n（注意：連線過程請勿關閉軟體或中斷通訊）",
+                  "en": "[Goal] Establish communication between DRAStudio Pro and controller (MS2 / MS).\n\n[Common Procedure]\n1. Make sure the controller is powered on.\n(Note: Confirm the power indicator is on and safety checks are completed.)\n\n2. Ensure the communication cable or interface is ready.\n(Note: For USB, Ethernet, or serial communication, verify the PC can detect the interface.)\n\n3. Click the Connect button in DRAStudio Pro.\n(Caution: Do not interrupt communication during connection.)"
+                },
+                {
+                  "type": "text",
+                  "zh": "【差異設定】以下提供 MS2 與 MS 的畫面示意與通訊參數範例，請依實際設備型號選擇對應項目。",
+                  "en": "[Differences] Below are example screens and communication parameters for MS2 and MS. Select the one that matches your device."
+                },
+
+                {
+                  "type": "text",
+                  "zh": "【MS2】連線畫面與通訊參數（示例）",
+                  "en": "[MS2] Screen and communication parameters (example)"
+                },
+                {
+                  "type": "image",
+                  "size": "md",
+                  "src": "XXX.......",
+                  "caption": {
+                    "zh": "MS2 連線畫面（示意）",
+                    "en": "MS2 connection screen (example)"
+                  }
+                },
+                {
+                  "type": "table",
+                  "headers": {
+                    "zh": ["項目", "設定值"],
+                    "en": ["Item", "Value"]
+                  },
+                  "rows": {
+                    "zh": [
+                      ["通訊模式", "ASCII"],
+                      ["鮑率", "9600"],
+                      ["停止位元", "1"]
+                    ],
+                    "en": [
+                      ["Mode", "ASCII"],
+                      ["Baud rate", "9600"],
+                      ["Stop bits", "1"]
+                    ]
+                  }
+                },
+
+                {
+                  "type": "text",
+                  "zh": "【MS】連線畫面與通訊參數（示例）",
+                  "en": "[MS] Screen and communication parameters (example)"
+                },
+                {
+                  "type": "image",
+                  "size": "sm",
+                  "src": "XXX.......",
+                  "caption": {
+                    "zh": "MS 連線畫面（示意）",
+                    "en": "MS connection screen (example)"
+                  }
+                },
+                {
+                  "type": "table",
+                  "headers": {
+                    "zh": ["項目", "設定值"],
+                    "en": ["Item", "Value"]
+                  },
+                  "rows": {
+                    "zh": [
+                      ["通訊模式", "ASCII"],
+                      ["鮑率", "900"],
+                      ["停止位元", "1"]
+                    ],
+                    "en": [
+                      ["Mode", "ASCII"],
+                      ["Baud rate", "900"],
+                      ["Stop bits", "1"]
+                    ]
+                  }
+                },
+
+                {
+                  "type": "text",
+                  "zh": "【結果確認】\n1. 設定完成後，狀態列應顯示 Ready。\n（備註：若未顯示 Ready，請回頭檢查線材、通訊介面與參數設定）",
+                  "en": "[Verification]\n1. After setup, the status bar should show Ready.\n(Note: If Ready does not appear, re-check cables, interfaces, and parameters.)"
+                },
+                {
+                  "type": "text",
+                  "zh": "【再次確認】Ready 顯示代表控制器已成功連線，可進行後續操作。",
+                  "en": "[Double-check] Ready indicates the controller is successfully connected and ready for further operations."
+                }
+              ]
+            },
+
+            {
+              "id": "sec-02",
+              "title": {
+                "zh": "連線 MS 控制器",
+                "en": "Connect to MS Controller"
+              },
+              "blocks": [
+                {
+                  "type": "text",
+                  "zh": "本章節內容已整合至「連線控制器（MS2 / MS）」章節。\n\n請前往該章節，依實際使用的控制器型號（MS2 或 MS）進行操作。",
+                  "en": "This section has been consolidated into \"Connect Controller (MS2 / MS)\".\n\nPlease refer to that section and follow the procedure according to your controller type (MS2 or MS)."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
