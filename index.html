@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <title>Robot User Manual</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="./assets/manual.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="title">
+      <h1>Robot User Manual</h1>
+      <span id="meta"></span>
+    </div>
+    <div class="lang-switch">
+      <button data-lang="zh" class="active">中文</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div id="toc"></div>
+      <div class="search-box">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="搜尋手冊內容…"
+  />
+</div>
+
+    </aside>
+
+    <section class="content">
+      <div id="doc"></div>
+    </section>
+  </main>
+  <!-- Lightbox -->
+<div id="lightbox" class="lightbox hidden">
+  <div class="lightbox-backdrop"></div>
+  <div class="lightbox-panel">
+    <button id="lightboxClose" class="lightbox-close">✕</button>
+    <img id="lightboxImg" class="lightbox-img" alt="image preview" />
+    <div id="lightboxCap" class="lightbox-cap"></div>
+  </div>
+</div>
+
+  <script src="./assets/manual.js"></script>
+</body>
+</html>
